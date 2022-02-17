@@ -1,13 +1,12 @@
 package com.nwabundo.mkobo.controller;
 
 import com.nwabundo.mkobo.api.ApiResponse;
-import com.nwabundo.mkobo.dto.JWTResponse;
+import com.nwabundo.mkobo.payload.JWTResponse;
 import com.nwabundo.mkobo.dto.LoginDTO;
 import com.nwabundo.mkobo.filters.JWTDataSource;
 import com.nwabundo.mkobo.filters.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

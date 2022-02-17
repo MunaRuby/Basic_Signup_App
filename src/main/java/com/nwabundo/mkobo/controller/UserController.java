@@ -2,8 +2,8 @@ package com.nwabundo.mkobo.controller;
 
 import com.nwabundo.mkobo.dto.EditUserDTO;
 import com.nwabundo.mkobo.dto.SignUpUserDto;
-import com.nwabundo.mkobo.dto.UserResponseDto;
-import com.nwabundo.mkobo.model.UserModel;
+import com.nwabundo.mkobo.payload.SignupResponseDTO;
+import com.nwabundo.mkobo.payload.UserResponseDto;
 import com.nwabundo.mkobo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +24,9 @@ public class UserController {
 
 
     @PostMapping("create")
-    public String createuser(@RequestBody SignUpUserDto userDTO){
-        userService.createUser(userDTO);
+    public ResponseEntity<SignupResponseDTO> createuser(@RequestBody SignUpUserDto userDTO){
+        return ResponseEntity.ok().body(userService.createUser(userDTO));
 
-        return userDTO.getFirstName() + " " + userDTO.getLastName() + " has been created";
     }
 
     @PostMapping("edituser")
@@ -35,8 +34,4 @@ public class UserController {
         return ResponseEntity.ok().body(userService.updateUserDetails(editUserDTO, request));
     }
 
-    @GetMapping("hello")
-    public String hello(){
-        return "Hello world";
-    }
 }

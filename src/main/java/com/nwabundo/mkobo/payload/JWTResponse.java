@@ -1,4 +1,4 @@
-package com.nwabundo.mkobo.dto;
+package com.nwabundo.mkobo.payload;
 
 import lombok.Getter;
 

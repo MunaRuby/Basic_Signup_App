@@ -3,7 +3,8 @@ package com.nwabundo.mkobo.serviceimpl;
 import com.chompfooddeliveryapp.exception.BadRequestException;
 import com.nwabundo.mkobo.dto.EditUserDTO;
 import com.nwabundo.mkobo.dto.SignUpUserDto;
-import com.nwabundo.mkobo.dto.UserResponseDto;
+import com.nwabundo.mkobo.payload.SignupResponseDTO;
+import com.nwabundo.mkobo.payload.UserResponseDto;
 import com.nwabundo.mkobo.filters.JWTUtil;
 import com.nwabundo.mkobo.model.UserModel;
 import com.nwabundo.mkobo.repository.UserRepository;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,13 +35,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String createUser(SignUpUserDto signUpUserDto) {
-
-        String feedback = "";
+    public SignupResponseDTO createUser(SignUpUserDto signUpUserDto) {
 
         if(userRepository.existsByEmail(signUpUserDto.getEmail())){
 
-            feedback = signUpUserDto.getFirstName() + " " + signUpUserDto.getLastName() + " already exists";
+            return new SignupResponseDTO(signUpUserDto.getEmail(), signUpUserDto.getFirstName(), signUpUserDto.getLastName(), " already exists");
 
         }else{
             UserModel user = new UserModel();
@@ -52,10 +50,9 @@ public class UserServiceImpl implements UserService {
             user.setLastName(signUpUserDto.getLastName());
             user.setEmail(signUpUserDto.getEmail());
             userRepository.save(user);
-            feedback = signUpUserDto.getFirstName() + " " + signUpUserDto.getLastName() + " created";
+            return new SignupResponseDTO(signUpUserDto.getEmail(), signUpUserDto.getFirstName(), signUpUserDto.getLastName(), " created");
         }
 
-        return feedback;
     }
 
     @Override
